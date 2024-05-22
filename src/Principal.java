@@ -231,7 +231,48 @@ public class Principal {
 		//String salaY=sc.next();
 		String salaY="Dermatologia";
 		verificar_Camas_Disponibles(MPHos,HospitalX,salaY);
+		//MPHos.mostrar();
+//		2.	Requerimientos de Datos del paciente: buscar el hospital X y Sala de atencion Y 
+//		y adicionar un nuevo paciente a la nuva salaY.
+		System.out.println("\n\tADICIONAR UN NUEVO PACIENTE AL HOSPITAL (X) Y SALA(Y) ");
+		System.out.println("Introduce el Hospital X => ");
+		//String HospitalX1=sc.next();
+		String HospitalX1="PRO SALUD";
+		System.out.println("Introduce el Sala Y => ");
+		//String salaY1=sc.next();
+		String salaY1="Neumología";
+		adicionar_nuevo_paciente(MPHos,HospitalX1,salaY1);
 		MPHos.mostrar();
+		
+	}
+
+	private static void adicionar_nuevo_paciente(Mp_PilaHospital a, String hospitalX1, String salaY1) {
+		Scanner sc = new Scanner(System.in);
+		int nroPil=a.getNp();
+		PilaHospital auxHos = new PilaHospital();
+		for (int i = 0; i < nroPil; i++) {
+			Hospital hos = a.eliminar(i);
+			if (hos.getNombreHos().equals(hospitalX1)) {
+				NodoPlanta R = hos.getPlanta().getP();
+				while (R!=null) {
+					PilaSala_Atencion aux = new PilaSala_Atencion();
+					while (!R.getSalaAtencion().esVacia()) {
+						Sala_Atencion sa = R.getSalaAtencion().eli();
+						if (sa.getNomSalaArea().equals(salaY1)) {
+							Paciente nuevo = new Paciente();
+							nuevo.leer();
+							sa.paciente.adiFinal(nuevo);
+						}
+						aux.adi(sa);
+					}
+					R.getSalaAtencion().vaciar(aux);
+					R=R.getSig();
+				}
+			}
+			auxHos.adi(hos);
+			a.vaciar(i, auxHos);
+		}
+		
 		
 	}
 
