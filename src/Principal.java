@@ -31,13 +31,12 @@ public class Principal {
 		Ci2.adiFinal(new Cita("224AB","06/11/2023","14:45","Corazon","Se le acoseja baja en grasas saturadas y trans","Jorge",P2M2));
 		//-------HISTORILA P2-------
 		Historial H2 = new Historial("123A","Normal","Topico",Ci2);
-		Paciente P2 = new Paciente("23475","Jhamil","Leve",23,764627279,H2);
+		Paciente P2 = new Paciente("23475","Jhamil","Leve",43,764627279,H2);
 		
 		
 		LD_NormalPaciente Pa1 = new LD_NormalPaciente();
 		Pa1.adiFinal(P1);
 		Pa1.adiFinal(P1);
-
 		
 		LD_NormalPaciente Pa2 = new LD_NormalPaciente();
 		Pa2.adiFinal(P2);
@@ -242,8 +241,67 @@ public class Principal {
 		//String salaY1=sc.next();
 		String salaY1="Neumología";
 		adicionar_nuevo_paciente(MPHos,HospitalX1,salaY1);
-		MPHos.mostrar();
+//		3.	Registro de personas de la tercera edad: Del hospitalX buscra la persona con mayor edad
+//		y mostrar sus datos y su historila medico si lo es.
+		System.out.println("\n\tMSOTRAR PACIENTES CON MAYOR EDAD");
+		System.out.println("Introduce el Hospital X => ");
+		//String HospitalX1=sc.next();
+		String HospitalX2="SANTA SALUD";
+		buscar_Paciente_Mayor_edad(MPHos,HospitalX2);
 		
+	}
+
+	private static void buscar_Paciente_Mayor_edad(Mp_PilaHospital a, String hospitalX2) {
+		int nroPil=a.getNp();
+		PilaHospital auxHos = new PilaHospital();
+		for (int i = 0; i < nroPil; i++) {
+			Hospital hos = a.eliminar(i);
+			if (hos.getNombreHos().equals(hospitalX2)) {
+				NodoPlanta R = hos.getPlanta().getP();
+				while (R!=null) {
+					PilaSala_Atencion aux = new PilaSala_Atencion();
+					int mayor = mayorEdad(R.getSalaAtencion());
+					while (!R.getSalaAtencion().esVacia()) {
+						Sala_Atencion sa = R.getSalaAtencion().eli();
+						NodoPaciente Npa = sa.getPaciente().getP();
+						while (Npa!=null) {
+							Paciente pa = Npa.getPaciente();
+							if (pa.getEdad()==mayor) {
+								System.out.println("\n\tEl paciente "+pa.getNombre()+" es una persona mayor del hospital "+hospitalX2);
+								pa.mostrar();
+							}
+							Npa=Npa.getSig();
+						}
+						aux.adi(sa);
+					}
+					R.getSalaAtencion().vaciar(aux);
+					R=R.getSig();
+				}
+			}
+			auxHos.adi(hos);
+			a.vaciar(i, auxHos);
+		}
+		
+	}
+
+
+	private static int mayorEdad(PilaSala_Atencion a) {
+		PilaSala_Atencion aux = new PilaSala_Atencion();
+		int mayor=0;
+		while (!a.esVacia()) {
+			Sala_Atencion sa = a.eli();
+			NodoPaciente R = sa.getPaciente().getP();
+			while (R!=null) {
+				Paciente pa = R.getPaciente();
+				if (pa.getEdad()>mayor) {
+					mayor=pa.getEdad();
+				}
+				R=R.getSig();
+			}
+			aux.adi(sa);
+		}
+		a.vaciar(aux);
+		return mayor;
 	}
 
 	private static void adicionar_nuevo_paciente(Mp_PilaHospital a, String hospitalX1, String salaY1) {
@@ -272,7 +330,6 @@ public class Principal {
 			auxHos.adi(hos);
 			a.vaciar(i, auxHos);
 		}
-		
 		
 	}
 
