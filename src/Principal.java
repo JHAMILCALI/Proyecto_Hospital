@@ -5,6 +5,8 @@ import javax.print.Doc;
 
 public class Principal {
 	public static void main(String[] args) {
+		//tipos de urgencia
+		//Emergencia, urgencia,atencion Prioritaria,conuslta general
 		//======PACIENTE 1=================
 		PilaMedicamento P1M1 = new PilaMedicamento();
 		P1M1.adi(new Medicamento("Paracetamol","Cada 8 horas",4,3));
@@ -17,7 +19,7 @@ public class Principal {
 		Ci1.adiFinal(new Cita("124AB","12/03/2023","14:45","Rostro","Se le acoseja usara protector solar","Neytan",P1M2));
 		//-------HISTORILA P1-------
 		Historial H1 = new Historial("123A","Normal","Topico",Ci1);
-		Paciente P1 = new Paciente("123ABC1","Jose","Leve",19,89765356,H1);
+		Paciente P1 = new Paciente("123ABC1","Jose","Atencion prioritaria",19,89765356,H1);
 		
 		//======PACIENTE 2=================
 		PilaMedicamento P2M1 = new PilaMedicamento();
@@ -36,10 +38,15 @@ public class Principal {
 		
 		LD_NormalPaciente Pa1 = new LD_NormalPaciente();
 		Pa1.adiFinal(P1);
-		Pa1.adiFinal(P1);
+		
 		
 		LD_NormalPaciente Pa2 = new LD_NormalPaciente();
 		Pa2.adiFinal(P2);
+		Pa2.adiFinal(new Paciente("23475","Maria","Urgencia",43,764627279,H1));
+		Pa2.adiFinal(new Paciente("23475","Juana","Emergencia",43,764627279,H1));
+		Pa2.adiFinal(new Paciente("23475","Chelo","Urgencia",43,764627279,H1));
+		Pa2.adiFinal(new Paciente("23475","Lupe","Emergencia",43,764627279,H1));
+		Pa2.adiFinal(new Paciente("23475","Angela","consulta general",43,764627279,H1));
 		//P.mostrar();
 		LD_CircularDoctor doc1 = new LD_CircularDoctor();
 		doc1.adiFinal(new Doctor("Mañana","Neytan","Dermatologo",762537738,20));
@@ -229,7 +236,7 @@ public class Principal {
 		System.out.println("Introduce el Sala Y => ");
 		//String salaY=sc.next();
 		String salaY="Dermatologia";
-		verificar_Camas_Disponibles(MPHos,HospitalX,salaY);
+		//verificar_Camas_Disponibles(MPHos,HospitalX,salaY);
 		//MPHos.mostrar();
 //		2.	Requerimientos de Datos del paciente: buscar el hospital X y Sala de atencion Y 
 //		y adicionar un nuevo paciente a la nuva salaY.
@@ -240,15 +247,125 @@ public class Principal {
 		System.out.println("Introduce el Sala Y => ");
 		//String salaY1=sc.next();
 		String salaY1="Neumología";
-		adicionar_nuevo_paciente(MPHos,HospitalX1,salaY1);
+		//adicionar_nuevo_paciente(MPHos,HospitalX1,salaY1);
 //		3.	Registro de personas de la tercera edad: Del hospitalX buscra la persona con mayor edad
 //		y mostrar sus datos y su historila medico si lo es.
 		System.out.println("\n\tMSOTRAR PACIENTES CON MAYOR EDAD");
 		System.out.println("Introduce el Hospital X => ");
 		//String HospitalX1=sc.next();
 		String HospitalX2="SANTA SALUD";
-		buscar_Paciente_Mayor_edad(MPHos,HospitalX2);
+		//buscar_Paciente_Mayor_edad(MPHos,HospitalX2);
+//		4. La atencion Prioritaria a pacientes de emergencia: mover al principio los pacientes que tengan
+//		como su urgencia como Emergencia del hospitalX y salaAtencionY ;
+		System.out.println("\n\tMOVER A LOS PACINTES QUE SON DE EMERGENCIA AL PRINCIPIO");
+		System.out.println("Introduce el Hospital X => ");
+		//String HospitalX3=sc.next();
+		String HospitalX3="SANTA SALUD";
+		System.out.println("Introduce el Sala Y => ");
+		//String salaY3=sc.next();
+		String salaY3="Cardiólogia";
+		mover_inicio_Pacientes_Casos_Emergencia(MPHos,HospitalX3,salaY3,"Urgencia");
+		System.out.println("\tSe movio los pacientes con urgencia del salaX al pricnipio........");
+		MPHos.mostrar();
+		System.out.println("\n\tDEL DOCTORX BUSCAR CUALES SON LOS PACINETES QUE ATENDIO");
+		System.out.println("Introduce el doctor x: ");
+		String docX=sc.next();
+		buscra_Pacientes_dodctorX(MPHos,docX);
+
 		
+	}
+
+	private static void buscra_Pacientes_dodctorX(Mp_PilaHospital a, String docX) {
+		int nroPilas = a.Nropilas();
+		PilaHospital auxHos = new PilaHospital();
+		for (int i = 0; i < nroPilas; i++) {
+			Hospital hos = a.eliminar(i);
+			NodoPlanta R = hos.getPlanta().getP();
+			while (R!=null) {
+				PilaSala_Atencion aux = new PilaSala_Atencion();
+				while (!R.getSalaAtencion().esVacia()) {
+					Sala_Atencion sa = R.getSalaAtencion().eli();
+					NodoPaciente S = sa.getPaciente().getP();
+					while (S!=null) {
+						Paciente pa = S.getPaciente();
+						boolean sw = false;
+						NodoCita T = pa.getHistorial().getCita().getP();
+						while (T!=null) {
+							Cita ci = T.getCita();
+							if (ci.getNomDoctorAtendido().equals(docX)) {
+								sw=true;
+							}
+							T=T.getSig();
+						}
+						S=S.getSig();
+						if (sw) {
+							System.out.println("Atendio a "+pa.getNombre());
+						}
+					}
+				}
+				R=R.getSig();
+			}
+			auxHos.adi(hos);
+			a.vaciar(i, auxHos);
+		}
+		
+	}
+
+	private static void mover_inicio_Pacientes_Casos_Emergencia(Mp_PilaHospital a, String hospitalX3,
+	        String salaY3, String urgencia) {
+	    int nroPil = a.getNp();
+	    PilaHospital auxHos = new PilaHospital();
+
+	    for (int i = 0; i < nroPil; i++) {
+	        Hospital hos = a.eliminar(i);
+	        if (hos.getNombreHos().equals(hospitalX3)) {
+	            NodoPlanta R = hos.getPlanta().getP();
+	            while (R != null) {
+	                PilaSala_Atencion aux = new PilaSala_Atencion();
+	                while (!R.getSalaAtencion().esVacia()) {
+	                    Sala_Atencion sa = R.getSalaAtencion().eli();
+	                    if (sa.getNomSalaArea().equals(salaY3)) {
+	                        LD_NormalPaciente auxPa = new LD_NormalPaciente();
+	                        NodoPaciente S = sa.getPaciente().getP();
+	                        while (S != null) {
+	                            Paciente pa = S.getPaciente();
+	                            NodoPaciente next = S.getSig();
+	                            if (pa.getUrgencia().equals(urgencia)) {
+	                                auxPa.adiFinal(pa);
+	                                
+	                                if (S.getAnt() != null) {
+	                                    S.getAnt().setSig(S.getSig());
+	                                }
+	                                if (S.getSig() != null) {
+	                                    S.getSig().setAnt(S.getAnt());
+	                                }
+	                                if (S == sa.getPaciente().getP()) {
+	                                    sa.getPaciente().setP(S.getSig());
+	                                }
+	                            }
+	                            S = next;
+	                        }
+	                        añadir_al_inicio(auxPa, sa);
+	                    }
+	                    aux.adi(sa);
+	                }
+	                R.getSalaAtencion().vaciar(aux);
+	                R = R.getSig();
+	            }
+	        }
+	        auxHos.adi(hos);
+	        a.vaciar(i, auxHos);
+	    }
+	    
+	}
+
+	private static void añadir_al_inicio(LD_NormalPaciente a, Sala_Atencion sa) {
+	    NodoPaciente R = a.getP();
+	    while (R != null) {
+	        Paciente pa = R.getPaciente();
+	        sa.getPaciente().adiPrimero(pa);
+	        R = R.getSig();
+	    }
 	}
 
 	private static void buscar_Paciente_Mayor_edad(Mp_PilaHospital a, String hospitalX2) {
