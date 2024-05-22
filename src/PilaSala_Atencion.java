@@ -42,12 +42,14 @@ public class PilaSala_Atencion extends VectorSala_Atencion{
 	
 	public void mostrar(){
 		PilaSala_Atencion aux = new PilaSala_Atencion();
-		System.out.println("Datos de la pila: ");
+		System.out.println("\t==Datos de la Sala de Atencion==");
+		int cont=1;
 		while(!esVacia()){
 			Sala_Atencion elem = new Sala_Atencion();
 			 elem = eli();
-			//System.out.println(elem);
+			System.out.println("\t SALA ["+cont+"]");
 			elem.mostrar();
+			cont++;
 			aux.adi(elem);
 		} 
 		vaciar(aux);

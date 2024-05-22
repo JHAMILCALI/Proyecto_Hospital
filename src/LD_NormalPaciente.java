@@ -31,9 +31,12 @@ public class LD_NormalPaciente extends ListaDoblePaciente{
 	}
 	void mostrar() {
 		NodoPaciente R = P;
-		System.out.println("\tLISTA DE PACIENTES");
+		System.out.println("\t*****LISTA DE PACIENTES******");
+		int cont=1;
 		while(R != null) {
+			System.out.println("\tPACIENTE ["+cont+"]");
 			R.getPaciente().mostrar();
+			cont++;
 			System.out.println("-------------------");
 			R = R.getSig();
 		}

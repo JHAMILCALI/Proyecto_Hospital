@@ -42,7 +42,6 @@ public class PilaMedicamento extends VectorMedicamento{
 	
 	public void mostrar(){
 		PilaMedicamento aux = new PilaMedicamento();
-		System.out.println("\tDatos de Medicamentos");
 		while(!esVacia()){
 			Medicamento elem = new Medicamento();
 			 elem = eli();

@@ -4,21 +4,22 @@ public class Paciente {
 	private
 	String id,nombre,urgencia;
 	int edad,ci;
-	LD_NormalCita cita = new LD_NormalCita();
+	Historial historial = new Historial();
 	
 	public Paciente() {
 		
 	}
 	
-	public Paciente(String id, String nombre, String urgencia, int edad, int ci, LD_NormalCita cita) {
+	public Paciente(String id, String nombre, String urgencia, int edad, int ci, Historial historial) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.urgencia = urgencia;
 		this.edad = edad;
 		this.ci = ci;
-		this.cita = cita;
+		this.historial = historial;
 	}
+
 	void leer() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Intro ID Paciente: ");
@@ -31,9 +32,7 @@ public class Paciente {
 		ci=sc.nextInt();
 		System.out.println("Intro Urgencia: ");
 		urgencia=sc.next();
-		System.out.println("\tINTRODUCE LA CANTIDAD DE CITAS");
-		int cantX=sc.nextInt();
-		cita.leer1(cantX);
+		historial.leer();
 	}
 	void mostrar() {
 		System.out.println("ID PACIENTE: "+id);
@@ -41,7 +40,8 @@ public class Paciente {
 		System.out.println("EDAD: "+edad);
 		System.out.println("CI: "+ci);
 		System.out.println("Urgencia: "+urgencia);
-		cita.mostrar();
+		System.out.println("\t______HISTORIAL_____");
+		historial.mostrar();
 	}
 
 	public String getId() {
@@ -84,13 +84,12 @@ public class Paciente {
 		this.ci = ci;
 	}
 
-	public LD_NormalCita getCita() {
-		return cita;
+	public Historial getHistorial() {
+		return historial;
 	}
 
-	public void setCita(LD_NormalCita cita) {
-		this.cita = cita;
+	public void setHistorial(Historial historial) {
+		this.historial = historial;
 	}
-	
-	
+
 }	

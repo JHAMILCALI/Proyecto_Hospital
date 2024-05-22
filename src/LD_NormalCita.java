@@ -32,8 +32,11 @@ public class LD_NormalCita extends ListaDobleCita{
 	void mostrar() {
 		NodoCita R = P;
 		System.out.println("\t*****LISTA DE CITAS MEDICAS*****");
+		int cont=1;
 		while(R != null) {
+			System.out.println("\tCITA ["+cont+"]");
 			R.getCita().mostrar();
+			cont++;
 			System.out.println("------------------------------");
 			R = R.getSig();
 		}

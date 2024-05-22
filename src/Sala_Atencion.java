@@ -36,9 +36,9 @@ public class Sala_Atencion {
 	void mostrar() {
 		System.out.println("NOMBRE SALA: "+nomSalaArea);
 		System.out.println("ID SALA :"+id);
-		paciente.mostrar();
 		enfermera.mostrar();
 		cama.mostrar();
+		paciente.mostrar();
 	}
 	public String getNomSalaArea() {
 		return nomSalaArea;
