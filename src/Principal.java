@@ -267,6 +267,8 @@ public class Principal {
 		mover_inicio_Pacientes_Casos_Emergencia(MPHos,HospitalX3,salaY3,"Urgencia");
 		System.out.println("\tSe movio los pacientes con urgencia del salaX al pricnipio........");
 		MPHos.mostrar();
+//		5. BUSACAR PACINTES:  SE BUSCARA LOS PACIENTE QUE ATENDIO EL DOCTOR (X) Y SE MOSTARRA LOS 
+//		NOMBRE A QUIENES SE ATENDIO.
 		System.out.println("\n\tDEL DOCTORX BUSCAR CUALES SON LOS PACINETES QUE ATENDIO");
 		System.out.println("Introduce el doctor x: ");
 		String docX=sc.next();
