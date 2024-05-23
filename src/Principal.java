@@ -222,64 +222,97 @@ public class Principal {
 		MPHos.adicionar(1, new Hospital("PRO SALUD", "San Miguel AV.lupe", 67263883, pla2));
 		MPHos.setNp(2);
 		MPHos.mostrar();
+		Scanner sc = new Scanner(System.in);
 		
 		
 		//=======================RESOLUCION DE LOS PROBLEMAS=======================
-//		1. Escasez de camas:  verificar del hospital X de la sala Y si tiene la cantidad de 
-//		camas disponibles para cubrir la cantidad de pacientes si es que las camas y pacintes
-//		son lo mismo o falta de camas agregar camas nuevas.
-		System.out.println("\n\tVERIFICAR SI AUN AY CAMAS PARA LOS PACIENTES");
-		System.out.println("Introduce el Hospital X => ");
-		Scanner sc = new Scanner(System.in);
-		//String HospitalX=sc.next();
-		String HospitalX="SANTA SALUD";
-		System.out.println("Introduce el Sala Y => ");
-		//String salaY=sc.next();
-		String salaY="Dermatologia";
-		//verificar_Camas_Disponibles(MPHos,HospitalX,salaY);
-		//MPHos.mostrar();
-//		2.	Requerimientos de Datos del paciente: buscar el hospital X y Sala de atencion Y 
-//		y adicionar un nuevo paciente a la nuva salaY.
-		System.out.println("\n\tADICIONAR UN NUEVO PACIENTE AL HOSPITAL (X) Y SALA(Y) ");
-		System.out.println("Introduce el Hospital X => ");
-		//String HospitalX1=sc.next();
-		String HospitalX1="PRO SALUD";
-		System.out.println("Introduce el Sala Y => ");
-		//String salaY1=sc.next();
-		String salaY1="Neumología";
-		//adicionar_nuevo_paciente(MPHos,HospitalX1,salaY1);
-//		3.	Registro de personas de la tercera edad: Del hospitalX buscra la persona con mayor edad
-//		y mostrar sus datos y su historila medico si lo es.
-		System.out.println("\n\tMSOTRAR PACIENTES CON MAYOR EDAD");
-		System.out.println("Introduce el Hospital X => ");
-		//String HospitalX1=sc.next();
-		String HospitalX2="SANTA SALUD";
-		//buscar_Paciente_Mayor_edad(MPHos,HospitalX2);
-//		4. La atencion Prioritaria a pacientes de emergencia: mover al principio los pacientes que tengan
-//		como su urgencia como Emergencia del hospitalX y salaAtencionY ;
-		System.out.println("\n\tMOVER A LOS PACINTES QUE SON DE EMERGENCIA AL PRINCIPIO");
-		System.out.println("Introduce el Hospital X => ");
-		//String HospitalX3=sc.next();
-		String HospitalX3="SANTA SALUD";
-		System.out.println("Introduce el Sala Y => ");
-		//String salaY3=sc.next();
-		String salaY3="Cardiólogia";
-		mover_inicio_Pacientes_Casos_Emergencia(MPHos,HospitalX3,salaY3,"Urgencia");
-		System.out.println("\tSe movio los pacientes con urgencia del salaX al pricnipio........");
-		MPHos.mostrar();
-//		5. BUSACAR PACINTES:  SE BUSCARA LOS PACIENTE QUE ATENDIO EL DOCTOR (X) Y SE MOSTARRA LOS 
-//		NOMBRE A QUIENES SE ATENDIO.
-		System.out.println("\n\tDEL DOCTORX BUSCAR CUALES SON LOS PACINETES QUE ATENDIO");
-		System.out.println("Introduce el doctor x: ");
-		String docX=sc.next();
-		buscra_Pacientes_dodctorX(MPHos,docX);
-
+		int q;
+		while (true) {
+			System.out.println("[1] ESCASES DE CAMAS");
+	        System.out.println("[2] ADICIONAR UN PACIENTE A UNA SALA");
+	        System.out.println("[3] PERSONA CON MAYOR EDAD DE LA SALA X");
+	        System.out.println("[4] MOVER AL PRINCIPIO LOS PACINTES DE URGENCIA");
+	        System.out.println("[5] MOSTRAR PACINTES DEL DOCTOR X");
+	        System.out.println("INTRO CUAL INGRESAR ");
+	        q = sc.nextInt();
+	        
+	        switch(q){
+	        	case 1:
+//	        		1. Escasez de camas:  verificar del hospital X de la sala Y si tiene la cantidad de 
+//	        		camas disponibles para cubrir la cantidad de pacientes si es que las camas y pacintes
+//	        		son lo mismo o falta de camas agregar camas nuevas.
+	        		System.out.println("\n\tVERIFICAR SI AUN AY CAMAS PARA LOS PACIENTES");
+	        		System.out.println("Introduce el Hospital X => ");
+	        		String HospitalX=sc.next();
+	        		//String HospitalX="SANTA SALUD";
+	        		System.out.println("Introduce el Sala Y => ");
+	        		String salaY=sc.next();
+	        		//String salaY="Dermatologia";
+	        		verificar_Camas_Disponibles(MPHos,HospitalX,salaY);
+	        		MPHos.mostrar();
+	        		break;
+	        	case 2:
+//	        		2.	Requerimientos de Datos del paciente: buscar el hospital X y Sala de atencion Y 
+//	        		y adicionar un nuevo paciente a la nuva salaY.
+	        		System.out.println("\n\tADICIONAR UN NUEVO PACIENTE AL HOSPITAL (X) Y SALA(Y) ");
+	        		System.out.println("Introduce el Hospital X => ");
+	        		String HospitalX1=sc.next();
+	        		//String HospitalX1="PRO SALUD";
+	        		System.out.println("Introduce el Sala Y => ");
+	        		String salaY1=sc.next();
+	        		//String salaY1="Neumología";
+	        		adicionar_nuevo_paciente(MPHos,HospitalX1,salaY1);
+	        		break;
+	        	case 3: 
+//	        		3.	Registro de personas de la tercera edad: Del hospitalX buscra la persona con mayor edad
+//	        		y mostrar sus datos y su historila medico si lo es.
+	        		System.out.println("\n\tMSOTRAR PACIENTES CON MAYOR EDAD");
+	        		System.out.println("Introduce el Hospital X => ");
+	        		String HospitalX2=sc.next();
+	        		//String HospitalX2="SANTA SALUD";
+	        		buscar_Paciente_Mayor_edad(MPHos,HospitalX2);
+	        		break;
+	        	case 4:
+//	        		4. La atencion Prioritaria a pacientes de emergencia: mover al principio los pacientes que tengan
+//	        		como su urgencia como Emergencia del hospitalX y salaAtencionY ;
+	        		System.out.println("\n\tMOVER A LOS PACINTES QUE SON DE EMERGENCIA AL PRINCIPIO");
+	        		System.out.println("Introduce el Hospital X => ");
+	        		String HospitalX3=sc.next();
+	        		//String HospitalX3="SANTA SALUD";
+	        		System.out.println("Introduce el Sala Y => ");
+	        		String salaY3=sc.next();
+	        		//String salaY3="Cardiólogia";
+	        		mover_inicio_Pacientes_Casos_Emergencia(MPHos,HospitalX3,salaY3,"Urgencia");
+	        		System.out.println("\tSe movio los pacientes con urgencia del salaX al pricnipio........");
+	        		MPHos.mostrar();
+	        		break;
+	        	case 5:
+//	        		5. BUSACAR PACINTES:  SE BUSCARA LOS PACIENTE QUE ATENDIO EL DOCTOR (X) Y SE MOSTARRA LOS 
+//	        		NOMBRE A QUIENES SE ATENDIO.
+	        		System.out.println("\n\tDEL DOCTORX BUSCAR CUALES SON LOS PACINETES QUE ATENDIO");
+	        		System.out.println("Introduce el doctor x: ");
+	        		String docX=sc.next();
+	        		//String docX="Neytan";
+	        		buscra_Pacientes_dodctorX(MPHos,docX);
+	        		break;
+	        	 default:
+		                System.out.println("Opción inválida. Intente de nuevo.");
+		                continue; 
+	        }
+	        System.out.println("¿Desea realizar otra operación? (s/n)");
+	        String respuesta = sc.next();
+	        if (respuesta.equalsIgnoreCase("n")) {
+	            break; 
+	        }
+		}
+		sc.close();
 		
 	}
 
 	private static void buscra_Pacientes_dodctorX(Mp_PilaHospital a, String docX) {
 		int nroPilas = a.Nropilas();
 		PilaHospital auxHos = new PilaHospital();
+		boolean sf=false;
 		for (int i = 0; i < nroPilas; i++) {
 			Hospital hos = a.eliminar(i);
 			NodoPlanta R = hos.getPlanta().getP();
@@ -296,19 +329,23 @@ public class Principal {
 							Cita ci = T.getCita();
 							if (ci.getNomDoctorAtendido().equals(docX)) {
 								sw=true;
+								sf=true;
 							}
 							T=T.getSig();
 						}
 						S=S.getSig();
 						if (sw) {
 							System.out.println("Atendio a "+pa.getNombre());
-						}
+						}                  
 					}
 				}
 				R=R.getSig();
 			}
 			auxHos.adi(hos);
 			a.vaciar(i, auxHos);
+		}
+		if (!sf) {
+			System.out.println("El doctor "+docX+" no atendio a ningun paciente");
 		}
 		
 	}
