@@ -1,3 +1,4 @@
+package Clases;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -218,8 +219,8 @@ public class Principal {
 		pla2.adiFinal("P2",con2, SA2);
 		pla2.adiFinal("P3",con2, SA3);
 		Mp_PilaHospital MPHos = new Mp_PilaHospital();
-		MPHos.adicionar(0, new Hospital("SANTA SALUD", "Miraflores AV.lupe", 67263883, pla));
-		MPHos.adicionar(1, new Hospital("PRO SALUD", "San Miguel AV.lupe", 67263883, pla2));
+		MPHos.adicionar(0, new Hospital("SANTA_SALUD", "Miraflores AV.lupe", 67263883, pla));
+		MPHos.adicionar(1, new Hospital("PRO_SALUD", "San Miguel AV.lupe", 67263883, pla2));
 		MPHos.setNp(2);
 		MPHos.mostrar();
 		Scanner sc = new Scanner(System.in);
@@ -249,7 +250,7 @@ public class Principal {
 	        		String salaY=sc.next();
 	        		//String salaY="Dermatologia";
 	        		verificar_Camas_Disponibles(MPHos,HospitalX,salaY);
-	        		MPHos.mostrar();
+	        		//MPHos.mostrar();
 	        		break;
 	        	case 2:
 //	        		2.	Requerimientos de Datos del paciente: buscar el hospital X y Sala de atencion Y 
